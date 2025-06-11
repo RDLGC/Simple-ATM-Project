@@ -125,20 +125,6 @@ public class Login {
     }
 
     @SuppressWarnings("CallToPrintStackTrace")
-    public boolean connectionEstablished(String DB_URL, String DB_USERNAME, String DB_PASSWORD) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    @SuppressWarnings("CallToPrintStackTrace")
     public boolean userValidated(String accountNumber, String PIN) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
