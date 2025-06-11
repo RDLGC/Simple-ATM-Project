@@ -95,14 +95,20 @@ public class Login {
             String accountNumber = accountNumberField.getText();
             String PIN = new String(pinField.getPassword());
 
-            if (!userValidated(accountNumber, PIN)) {
-                JOptionPane.showMessageDialog(null, "Account number and PIN mismatch! Please try again.");
+            if (!(accountNumber.length() == 0 || PIN.length() == 0)) {
 
-                accountNumberField.setText("");
-                pinField.setText("");
+                if (!userValidated(accountNumber, PIN)) {
+                    JOptionPane.showMessageDialog(null, "Account number and PIN mismatch! Please try again.");
+    
+                    accountNumberField.setText("");
+                    pinField.setText("");
+                } else {
+                    Dashboard d = new Dashboard();
+                    d.show();
+                }
+
             } else {
-                Dashboard d = new Dashboard();
-                d.show();
+                JOptionPane.showMessageDialog(null, "Please fill in all fields.");
             }
         }
         

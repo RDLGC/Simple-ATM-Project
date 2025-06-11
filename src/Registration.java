@@ -58,6 +58,7 @@ public class Registration {
 
         goBackButton = new JButton();
         goBackButton.setText("Go Back");
+        goBackButton.addActionListener(new GoBackButtonHandler());
 
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(2, 2, 0, 10));
@@ -85,7 +86,17 @@ public class Registration {
                 disposeRegistrationFrame();
             }
         }
-        
+
+    }
+
+    class GoBackButtonHandler implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Login l = new Login();
+            l.show();
+        }
+
     }
 
     @SuppressWarnings("CallToPrintStackTrace")
