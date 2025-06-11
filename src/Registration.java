@@ -80,6 +80,9 @@ public class Registration {
                 JOptionPane.showMessageDialog(null, "Please enter an account name..");
             } else {
                 registerRequest(accountName);
+                JOptionPane.showMessageDialog(null, "Registration successful!" +
+                " Kindly wait for the administrator to approve your request.");
+                disposeRegistrationFrame();
             }
         }
         
