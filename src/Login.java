@@ -23,9 +23,9 @@ public class Login {
     private final static int WIDTH = 800;
     private final static int HEIGHT = 500;
 
-    private String DB_URL = "jdbc:mysql://localhost:3306/MCKPBankingCorp";
-    private String DB_USERNAME = "root";
-    private String DB_PASSWORD = "P@st0rp!de_030106";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/MCKPBankingCorp";
+    private final String DB_USERNAME = "root";
+    private final String DB_PASSWORD = "P@st0rp!de_030106";
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public Login() {
@@ -63,12 +63,12 @@ public class Login {
         pinField.setFont(new Font("Monsterrat", Font.PLAIN, 18));
 
         exitButton = new JButton();
-        exitButton.setText("← Exit");
+        exitButton.setText("Register");
         exitButton.setFont(new Font("Monsterrat", Font.PLAIN, 18));
-        exitButton.addActionListener(new ExitButtonHandler());
+        exitButton.addActionListener(new RegisterButtonHandler());
 
         loginButton = new JButton();
-        loginButton.setText("Login >");
+        loginButton.setText("Login");
         loginButton.setFont(new Font("Monsterrat", Font.PLAIN, 18));
         loginButton.addActionListener(new LoginButtonHandler());
 
@@ -95,7 +95,7 @@ public class Login {
             String accountNumber = accountNumberField.getText();
             String PIN = new String(pinField.getPassword());
 
-            if (!authenticateUser(accountNumber, PIN)) {
+            if (!userValidated(accountNumber, PIN)) {
                 JOptionPane.showMessageDialog(null, "Account number and PIN mismatch! Please try again.");
 
                 accountNumberField.setText("");
@@ -108,27 +108,32 @@ public class Login {
         
     }
 
-    class ExitButtonHandler implements ActionListener {
+    class RegisterButtonHandler implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            disposeLoginFrame();
+            Registration r = new Registration();
+            r.show();
         }
 
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     public boolean connectionEstablished(String DB_URL, String DB_USERNAME, String DB_PASSWORD) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return true;
     }
 
-    public boolean authenticateUser(String accountNumber, String PIN) {
+    @SuppressWarnings("CallToPrintStackTrace")
+    public boolean userValidated(String accountNumber, String PIN) {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 
@@ -145,7 +150,7 @@ public class Login {
             if (!result.isBeforeFirst()) {
                 return false;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return true;
