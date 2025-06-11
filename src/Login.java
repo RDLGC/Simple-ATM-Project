@@ -1,5 +1,6 @@
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.sql.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -73,6 +74,18 @@ public class Login {
 
         loginFrame.getContentPane().add(loginLabel);
         loginFrame.getContentPane().add(inputPanel);
+
+        establishConnection();
+    }
+
+    public void establishConnection() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/MCKPBankingCorp", "root", "P@st0rp!de_030106");
+            System.out.println("Connection established!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void show() {
